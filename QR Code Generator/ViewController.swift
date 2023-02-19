@@ -49,21 +49,26 @@ class ViewController: UIViewController {
             self.present(alertGenerator(with: "Type something before generating a qr code"), animated: true)
             return
         }
+        if let inputTextByUser = inputTextByUser{
+            print(inputTextByUser)
+            fetchQRCode(with: inputTextByUser)
+        }
         
-        fetchQRCode(with: inputTextByUser!)
+        
         
     }
     
     func fetchQRCode(with text: String){
         
         clearQRCode()
+        var replacedStringWithPlus = text.replacingOccurrences(of: " ", with: "+")
     
         let headers = [
             "X-RapidAPI-Key": "f6ee0c68d2msh5dc8d420ea2fc54p124243jsnf1320cd64a90",
             "X-RapidAPI-Host": "getqrcode.p.rapidapi.com"
         ]
 
-        let request = NSMutableURLRequest(url: NSURL(string: "https://getqrcode.p.rapidapi.com/api/getQR?forQR=\(text)")! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: "https://getqrcode.p.rapidapi.com/api/getQR?forQR=\(replacedStringWithPlus)")! as URL,
                                                 cachePolicy: .useProtocolCachePolicy,
                                             timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -97,7 +102,7 @@ extension ViewController: UITextFieldDelegate{
             self.present(alertGenerator(with: "Type something before generating a qr code"), animated: true)
             return false
         }
-        fetchQRCode(with: inputTextField.text!)
+ //       fetchQRCode(with: inputTextField.text!)
         self.view.endEditing(true)
         return true
     }
