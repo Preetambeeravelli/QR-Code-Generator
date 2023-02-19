@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     @IBAction func shareButtonPressed(_ sender: UIButton) {
         
         var sharableImage = UIImage()
-        var qrCodeGenerated = qrCodeImageView.image
+        let qrCodeGenerated = qrCodeImageView.image
         
         if qrCodeGenerated == nil{
             present(alertGenerator(with: "Generate a QR Code before sharing"), animated: true)
